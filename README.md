@@ -26,7 +26,7 @@
 
 **Scripting**
 - [x] Hints
-- [ ] Inventory **[WORKING ON]**
+- [x] Inventory
 - [ ] Quests
 - [x] Item interaction
 - [x] FPS Counter
