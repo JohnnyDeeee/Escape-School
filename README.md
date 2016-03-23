@@ -28,7 +28,7 @@
 - [x] Hints
 - [ ] Inventory
 - [ ] Quests
-- [ ] Item interaction
+- [x] Item interaction
 - [x] FPS Counter
 
 **Texturing** (optional)
