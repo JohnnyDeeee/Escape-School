@@ -12,6 +12,7 @@
     - [ ] Hallway
       - [ ] Interior
     - [ ] Different floors (optional)
+	
 **2D Design**
 - [ ] HUD
   - [ ] Inventory
@@ -19,6 +20,7 @@
   - [ ] Menu
   - [ ] Menu buttons
 **Scripting**
+
 - [ ] Hints
 - [ ] Inventory
 - [ ] Quests
