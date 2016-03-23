@@ -59,15 +59,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
-            RotateView();
+            //Only move camera when the cursor is locked
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                RotateView(); 
+            }
+
+            //Raycast check what we are hitting
             m_MouseLook.CheckLookAt(m_Camera.transform);
-            CheckInput();
+
+            HandleHotKeys();
         }
 
-        private void CheckInput()
+        private void HandleHotKeys()
         {
-            HandleJumping();
-
             if (Input.GetKeyUp(KeyCode.E))
             {
                 // Do action that is part of the "active" interactable object
@@ -76,29 +81,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_MouseLook.interactableObj.GetComponent<Interactable>().Action();
                 }
             }
-        }
-
-        private void HandleJumping()
-        {
-            // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
+            else if (Input.GetKeyUp(KeyCode.I))
             {
-                m_Jump = Input.GetButtonDown("Jump");
+                //Show inventory
+                if (!GameManager.gui.inventory.gameObject.activeSelf)
+                {
+                    GameManager.gui.inventory.gameObject.SetActive(true);
+                    m_MouseLook.SetCursorLock(false);
+                }
+                //Hide inventory
+                else
+                {
+                    GameManager.gui.inventory.gameObject.SetActive(false);
+                    m_MouseLook.SetCursorLock(true);
+                }
             }
-
-            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
-            {
-                StartCoroutine(m_JumpBob.DoBobCycle());
-                PlayLandingSound();
-                m_MoveDir.y = 0f;
-                m_Jumping = false;
-            }
-            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
-            {
-                m_MoveDir.y = 0f;
-            }
-
-            m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
 
         private void PlayLandingSound()
@@ -220,6 +217,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
+            HandleWalking(out speed);
+            HandleJumping();            
+        }
+
+        private void HandleWalking(out float speed)
+        {
             // Read input
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
@@ -250,6 +253,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        private void HandleJumping()
+        {
+            // the jump state needs to read here to make sure it is not missed
+            if (!m_Jump)
+            {
+                m_Jump = Input.GetButtonDown("Jump");
+            }
+
+            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+            {
+                StartCoroutine(m_JumpBob.DoBobCycle());
+                PlayLandingSound();
+                m_MoveDir.y = 0f;
+                m_Jumping = false;
+            }
+            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
+            {
+                m_MoveDir.y = 0f;
+            }
+
+            m_PreviouslyGrounded = m_CharacterController.isGrounded;
+        }
 
         private void RotateView()
         {

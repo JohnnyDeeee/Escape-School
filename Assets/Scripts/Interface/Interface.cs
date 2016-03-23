@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Interface : MonoBehaviour
 {
+    public Inventory inventory;
 
     void Awake()
     {
@@ -25,9 +26,18 @@ public class Interface : MonoBehaviour
     //Show a hint on screen for x seconds
     public void ShowHint(string title, string message, float seconds)
     {
+        //Hide other hints
+        foreach (GameObject oldHint in GameObject.FindGameObjectsWithTag("Hint"))
+        {
+            StopCoroutine("HintTimer");
+            oldHint.SetActive(false);
+            Destroy(oldHint);
+        }
+
+        //Create new hint
         GameObject hint = Object.Instantiate(GameManager.pr_hint);
-        hint.transform.SetParent(gameObject.transform);
-        hint.transform.localPosition = new Vector2(0, 0);
+        hint.transform.SetParent(gameObject.transform, false);
+        //hint.transform.localPosition = new Vector2(0, 0);
         hint.transform.FindChild("Title").GetComponent<Text>().text = title;
         hint.transform.FindChild("Message").GetComponent<Text>().text = message;
         StartCoroutine(HintTimer(hint, seconds));
@@ -39,7 +49,13 @@ public class Interface : MonoBehaviour
 
         yield return new WaitForSeconds(seconds);
 
-        hint.SetActive(false);
-        Destroy(hint);
+        //Check if hint is not
+        //already destroyed by
+        //a overlapping hint
+        if (hint != null)
+        {
+            hint.SetActive(false);
+            Destroy(hint); 
+        }
     }
 }
