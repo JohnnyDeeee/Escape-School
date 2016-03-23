@@ -9,6 +9,10 @@
       - [ ]  ...
     - [ ] Classroom 02
       - [ ] Exterior
+	- [ ] Classroom 03
+      - [ ] Exterior
+	- [ ] Classroom 04
+      - [ ] Exterior	  
     - [ ] Hallway
       - [ ] Interior
     - [ ] Different floors (optional)
@@ -25,4 +29,7 @@
 - [ ] Inventory
 - [ ] Quests
 - [ ] Item interaction
-		
+
+**Texturing** (optional)
+- [ ] Interiors
+- [ ] Exteriors
