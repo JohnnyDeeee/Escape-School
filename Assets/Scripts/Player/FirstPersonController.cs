@@ -60,6 +60,26 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
+            m_MouseLook.CheckLookAt(m_Camera.transform);
+            CheckInput();
+        }
+
+        private void CheckInput()
+        {
+            HandleJumping();
+
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                // Do action that is part of the "active" interactable object
+                if (m_MouseLook.interactableObj != null)
+                {
+                    m_MouseLook.interactableObj.GetComponent<Interactable>().Action();
+                }
+            }
+        }
+
+        private void HandleJumping()
+        {
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
@@ -80,7 +100,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
-
 
         private void PlayLandingSound()
         {

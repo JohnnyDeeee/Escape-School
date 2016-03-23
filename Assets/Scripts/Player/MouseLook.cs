@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -19,6 +20,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
         private bool m_cursorIsLocked = true;
+        public GameObject interactableObj;
 
         public void Init(Transform character, Transform camera)
         {
@@ -52,6 +54,48 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             UpdateCursorLock();
+        }
+
+        //Check if player is looking at a interactable object
+        public void CheckLookAt(Transform camera)
+        {
+            RaycastHit hit;
+            Ray ray = new Ray(camera.position, camera.TransformDirection(Vector3.forward));
+            Debug.DrawRay(camera.position, camera.TransformDirection(Vector3.forward) * 3.0f, Color.red, 0.01f); //DEBUG
+
+            //Define a bitmask that tells "Collide only with this layer"
+            int layerMask = 1 << LayerMask.NameToLayer("Player");
+
+            //Invert the bitmask so that we collide with everything
+            //EXCEPT the layer above
+            layerMask = ~layerMask;
+
+            //Send raycast forward
+            if (Physics.Raycast(ray, out hit, 3.0f, layerMask))
+            {
+                //Reset any old highlights
+                if (interactableObj != null && hit.collider.gameObject != interactableObj)
+                {
+                    interactableObj.GetComponent<Interactable>().highlight = false;
+                }
+
+                //Highlight interactable
+                if (hit.collider.tag == "Interactable")
+                {
+                    interactableObj = hit.collider.gameObject;
+                    interactableObj.GetComponent<Interactable>().highlight = true;
+                }
+            }
+            else
+            {
+                //Reset any old highlights
+                if (interactableObj != null)
+                {
+                    interactableObj.GetComponent<Interactable>().highlight = false;
+                }
+            }
+
+
         }
 
         public void SetCursorLock(bool value)
