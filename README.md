@@ -25,7 +25,7 @@
   - [ ] Menu buttons
 
 **Scripting**
-- [ ] Hints
+- [ ] Hints **[WORKING ON]**
 - [ ] Inventory
 - [ ] Quests
 - [ ] Item interaction
