@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escape School.CSharp.Plugins", "Escape School.CSharp.Plugins.csproj", "{194A40B3-2E59-49A9-5472-BF5332EF64E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escape School.CSharp", "Escape School.CSharp.csproj", "{6DE3D3B4-70D0-1839-99C0-D0D321718A7B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escape School.CSharp.Editor", "Escape School.CSharp.Editor.csproj", "{3269BEF4-DA6B-5029-988D-AAA1060A6D9E}"
 EndProject
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{194A40B3-2E59-49A9-5472-BF5332EF64E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{194A40B3-2E59-49A9-5472-BF5332EF64E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{194A40B3-2E59-49A9-5472-BF5332EF64E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{194A40B3-2E59-49A9-5472-BF5332EF64E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DE3D3B4-70D0-1839-99C0-D0D321718A7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DE3D3B4-70D0-1839-99C0-D0D321718A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DE3D3B4-70D0-1839-99C0-D0D321718A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DE3D3B4-70D0-1839-99C0-D0D321718A7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3269BEF4-DA6B-5029-988D-AAA1060A6D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3269BEF4-DA6B-5029-988D-AAA1060A6D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3269BEF4-DA6B-5029-988D-AAA1060A6D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
