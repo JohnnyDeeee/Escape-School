@@ -20,7 +20,7 @@
 **2D Design**
 - [ ] HUD
   - [ ] Inventory
-  - [ ] FPS Counter		
+  - [x] FPS Counter		
   - [ ] Menu
   - [ ] Menu buttons
 
@@ -29,6 +29,7 @@
 - [ ] Inventory
 - [ ] Quests
 - [ ] Item interaction
+- [x] FPS Counter
 
 **Texturing** (optional)
 - [ ] Interiors
