@@ -19,8 +19,8 @@
   - [ ] FPS Counter		
   - [ ] Menu
   - [ ] Menu buttons
-**Scripting**
 
+**Scripting**
 - [ ] Hints
 - [ ] Inventory
 - [ ] Quests
