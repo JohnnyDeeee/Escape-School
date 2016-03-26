@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
+
+    public Slot selectedSlot;
 
     [SerializeField] private GameObject grid;
     private List<Slot> slots;
@@ -54,16 +55,41 @@ public class Inventory : MonoBehaviour {
     }
 
     //Removes item from te inventory
-    public void RemoveItem(Item item, int amount = 1)
+    public void RemoveItem(Item item, int amount = 1, Slot slot = null)
     {
-        //Find the item in a slot
+        
+        if (slot == null)
+        {
+            //Find the item in a slot
+            foreach (Slot s in slots)
+            {
+                //Slot has our item
+                if (s.Item == item)
+                {
+                    s.RemoveItem(amount);
+                }
+            }
+        }
+        else
+        {
+            slot.RemoveItem(amount);
+        }
+    }
+
+    //Searches for the secified item
+    public Item GetItem(Item item)
+    {
+        //Find the item
         foreach (Slot slot in slots)
         {
             //Slot has our item
             if (slot.Item == item)
             {
-                slot.RemoveItem(amount);
+                return item;
             }
         }
+
+        //Item not found
+        return null;
     }
 }

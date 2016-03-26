@@ -1,25 +1,40 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour {
 
     public bool highlight = false;
-    private Color originalColor;
-    private MeshRenderer mRenderer;
+    [SerializeField] private List<GameObject> objectsToColor;
+    private List<KeyValuePair<GameObject, Color>> objectsWithOriginalColor;
 
 	void Start () {
-        mRenderer = GetComponent<MeshRenderer>();
-        originalColor = mRenderer.material.color;
+        //Make a list that has as Key: GameObject and Value: original Color
+        objectsWithOriginalColor = new List<KeyValuePair<GameObject, Color>>();
+        foreach (GameObject obj in objectsToColor)
+        {
+            objectsWithOriginalColor.Add(new KeyValuePair<GameObject, Color>(obj, obj.GetComponent<MeshRenderer>().material.color));
+        }
+
+        //Give parent and all childs the "interactable" tag
         tag = "Interactable";
-	}
+    }
 	
 	void Update () {
         if (highlight)
         {
-            mRenderer.material.color = Color.red;
+            //Make all objects color red
+            foreach (KeyValuePair<GameObject, Color> pair in objectsWithOriginalColor)
+            {
+                pair.Key.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
         }
         else
         {
-            mRenderer.material.color = originalColor;
+            //Reset all objects color
+            foreach (KeyValuePair<GameObject, Color> pair in objectsWithOriginalColor)
+            {
+                pair.Key.GetComponent<MeshRenderer>().material.color = pair.Value;
+            }
         }
 	}
 

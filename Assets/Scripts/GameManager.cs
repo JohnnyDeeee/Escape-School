@@ -11,6 +11,7 @@ public static class GameManager
     public static List<Item> itemDatabase;
     public static Interface gui;
     public static int totalItems;
+    public static bool cabinetDoorsLocked = true;
 
     //One-time initialization
     public static void Initialize()

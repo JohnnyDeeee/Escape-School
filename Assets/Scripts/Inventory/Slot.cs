@@ -1,22 +1,34 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
-{
-    private Item item;
-
+{    
     public int index;
     public int amount = 0;
     public Item Item { get { return item; } }
 
-	void Start () {
-	
-	}
+    private Item item;
+    private Sprite empty;
+
+    void Start () {
+        //Create click event
+        EventTrigger trigger = GetComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerClick;
+        UnityAction<BaseEventData> call = new UnityAction<BaseEventData>(GameManager.gui.ClickOnSlot);
+        entry.callback.AddListener(call);
+        trigger.triggers.Add(entry);
+
+        //Set "empty" image
+        empty = transform.FindChild("Item").GetComponent<Image>().sprite;
+    }
 	
 	void Update () {
+        //Set image for item
         if (item != null)
         {
-            //Set image for item
             transform.FindChild("Item").GetComponent<Image>().sprite = item.Image;
 
             //Only show amount if it
@@ -32,7 +44,7 @@ public class Slot : MonoBehaviour
             //Hide amount
             else
             {
-                transform.FindChild("Amount").gameObject.SetActive(false);    
+                transform.FindChild("Amount").gameObject.SetActive(false);
             }
 
             //If itemstack is empty
@@ -43,7 +55,12 @@ public class Slot : MonoBehaviour
                 item = null;
             }
         }
-	}
+        else
+        {
+            transform.FindChild("Item").GetComponent<Image>().sprite = empty;
+            transform.FindChild("Amount").gameObject.SetActive(false);
+        }
+    }
 
     //Adds item to the slot
     public void AddItem(Item item, int amount = 1)
@@ -78,7 +95,7 @@ public class Slot : MonoBehaviour
             if (item.Stackable)
             {
                 //Flush whole item stack
-                if (amount > this.amount || flushWholeStack)
+                if (amount >= this.amount || flushWholeStack)
                 {
                     this.amount = 0;
                 }

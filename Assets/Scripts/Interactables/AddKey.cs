@@ -9,5 +9,6 @@ public class AddKey : Interactable
         //Add 1 key
         GameManager.gui.inventory.AddItem(GameManager.itemDatabase.Find(x => x.ItemName == "Key"));
         GameManager.gui.ShowHint("Item(s) Found", "You found a key!", 3.0f);
+        Destroy(gameObject);
     }
 }

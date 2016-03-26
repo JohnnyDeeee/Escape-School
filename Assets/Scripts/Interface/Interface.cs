@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System;
 
 public class Interface : MonoBehaviour
 {
     public Inventory inventory;
+    [SerializeField] private GameObject itemMenu;
+    private Slot selectedSlot;
 
     void Awake()
     {
@@ -35,7 +39,7 @@ public class Interface : MonoBehaviour
         }
 
         //Create new hint
-        GameObject hint = Object.Instantiate(GameManager.pr_hint);
+        GameObject hint = Instantiate(GameManager.pr_hint);
         hint.transform.SetParent(gameObject.transform, false);
         //hint.transform.localPosition = new Vector2(0, 0);
         hint.transform.FindChild("Title").GetComponent<Text>().text = title;
@@ -57,5 +61,43 @@ public class Interface : MonoBehaviour
             hint.SetActive(false);
             Destroy(hint); 
         }
+    }
+
+    public void ClickOnSlot(BaseEventData baseEvent)
+    {
+        //Check if click is a right click
+        if (Input.GetMouseButtonUp(1))
+        {
+            //Only show menu when there is a object
+            //inside the slot
+            PointerEventData pd = baseEvent as PointerEventData;
+            if (pd.pointerPress.GetComponent<Slot>().Item != null)
+            {
+                //Show menu                
+                itemMenu.transform.position = Input.mousePosition;
+                itemMenu.SetActive(true);
+                selectedSlot = pd.pointerPress.GetComponent<Slot>();
+            }
+        }
+    }
+
+    public void DropItem()
+    {
+        //Drop item
+        inventory.RemoveItem(selectedSlot.Item, 1, selectedSlot);
+        CancelMenu();
+        //TO-DO: Drop it as object in front of player
+    }
+
+    public void CancelMenu()
+    {
+        //Hide item menu
+        itemMenu.SetActive(false);
+        selectedSlot = null;
+    }
+
+    public void ExamineItem()
+    {
+        //Show hint about item
     }
 }
